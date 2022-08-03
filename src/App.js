@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Signin from './Authentication/Signin';
 import SignUp from './Authentication/SignUp';
 import Footer from './Components/Footer';
-import Home from './Pages/Home';
+import Home from './Pages/Home/Home';
 import AddTodos from './Pages/AddTodos';
 import YourTodos from './Pages/YourTodos';
 import CompletedTodos from './Pages/CompletedTodos';
@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       <Navbar>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home/>} />
           <Route path="/add-todos" element={<AddTodos />} />
           <Route path="/your-todos" element={<YourTodos />} />
           <Route path="/completed-todos" element={<CompletedTodos />} />
