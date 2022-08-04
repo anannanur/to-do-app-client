@@ -1,30 +1,39 @@
 import React, { useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-// import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-// import auth from '../firebase.init';
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+import auth from '../firebase/firebase.init';
 
 
 const SignIn = () => {
 
     //navigate to signup route
     const navigate = useNavigate();
+    const location = useLocation();
     const emailRef = useRef('');
     const passwordRef = useRef('');
     const navigateSignUp = () => {
         navigate('/signup');
     }
 
-   
-    // const [
-    //     signInWithEmailAndPassword,
-    // ] = useSignInWithEmailAndPassword(auth);
 
-    const handleSubmit = event => {
+    const [
+        signInWithEmailAndPassword,
+        user,
+        // loading,
+        // error,
+    ] = useSignInWithEmailAndPassword(auth);
+
+    const handleSignin = event => {
         event.preventDefault();
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
-        // signInWithEmailAndPassword(email, password);
-        console.log(email,password);
+        signInWithEmailAndPassword(email, password);
+    }
+
+    // to send user from which page he came 
+    let from = location?.state?.from.pathname || "/";
+    if (user) {
+        navigate(from, { replace: true });
     }
 
     return (
@@ -32,7 +41,7 @@ const SignIn = () => {
         <div class="hero min-h-screen">
             <div className="hero-overlay bg-opacity-20"></div>
             <div class="card  w-full max-w-sm shadow-2xl bg-base-100 bg-opacity-60">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSignin}>
                     <div class="card-body">
                         <h1 className='text-3xl text-primary text-center font-medium'>Sign In here</h1>
                         <div class="form-control">

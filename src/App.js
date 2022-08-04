@@ -9,6 +9,7 @@ import AddTodos from './Pages/AddTodos';
 import YourTodos from './Pages/YourTodos';
 import CompletedTodos from './Pages/CompletedTodos';
 import NotFound from './Components/NotFound';
+import PrivateRoute from './Authentication/PrivateRoute';
 
 function App() {
   return (
@@ -16,9 +17,15 @@ function App() {
       <Navbar>
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route path="/add-todos" element={<AddTodos />} />
-          <Route path="/your-todos" element={<YourTodos />} />
-          <Route path="/completed-todos" element={<CompletedTodos />} />
+          <Route path="/add-todos" element={<PrivateRoute>
+            <AddTodos />
+          </PrivateRoute>} />
+          <Route path="/your-todos" element={<PrivateRoute>
+            <YourTodos />
+          </PrivateRoute>} />
+          <Route path="/completed-todos" element={<PrivateRoute>
+            <CompletedTodos />
+          </PrivateRoute>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />

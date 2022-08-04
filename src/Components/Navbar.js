@@ -1,7 +1,17 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { NavLink, Link } from 'react-router-dom';
+import auth from '../firebase/firebase.init';
 
 const Navbar = ({ children }) => {
+
+    const [user] = useAuthState(auth);
+
+    const handleSignout = () => {
+        signOut(auth);
+    }
+
     return (
         <div className="drawer drawer-end">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -18,12 +28,17 @@ const Navbar = ({ children }) => {
 
                         <div className="flex-none hidden lg:block">
                             <ul className="menu menu-horizontal">
-                                {/* <!-- Navbar menu content here --> */}
                                 <li><NavLink to="/" className="rounded-lg mr-3">Home</NavLink></li>
-                                <li><NavLink to="/add-todos" className="rounded-lg mr-3">Add Todos</NavLink></li>
-                                <li><NavLink to="/your-todos" className="rounded-lg mr-3">Your Todos</NavLink></li>
-                                <li><NavLink to="/completed-todos" className="rounded-lg mr-3">Completed Todos</NavLink></li>
-                                <li><Link to="/signin" className="btn btn-primary btn-outline rounded-lg">Sign In</Link></li>
+                                {user && <>
+                                    <li><NavLink to="/add-todos" className="rounded-lg mr-3">Add Todos</NavLink></li>
+                                    <li><NavLink to="/your-todos" className="rounded-lg mr-3">Your Todos</NavLink></li>
+                                    <li><NavLink to="/completed-todos" className="rounded-lg mr-3">Completed Todos</NavLink></li>
+                                </>}
+                                {user ?
+                                    <li><button onClick={handleSignout} className="btn btn-primary btn-outline rounded-lg">Sign Out</button></li>
+                                    :
+                                    <li><Link to="/signin" className="btn btn-primary btn-outline rounded-lg">Sign In</Link></li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -36,10 +51,18 @@ const Navbar = ({ children }) => {
                 <ul className="menu p-4 overflow-y-auto w-80 bg-base-100">
                     {/* <!-- Sidebar content here --> */}
                     <li><NavLink to="/" className="rounded-lg">Home</NavLink></li>
-                    <li><NavLink to="/add-todos" className="rounded-lg">Add Todos</NavLink></li>
-                    <li><NavLink to="/your-todos" className="rounded-lg">Your Todos</NavLink></li>
-                    <li><NavLink to="/completed-todos" className="rounded-lg">Completed Todos</NavLink></li>
-                    <li><Link to="/signin" className="btn btn-primary btn-outline rounded-lg">Sign In</Link></li>
+                    {user &&
+                        <>
+                            <li><NavLink to="/add-todos" className="rounded-lg">Add Todos</NavLink></li>
+                            <li><NavLink to="/your-todos" className="rounded-lg">Your Todos</NavLink></li>
+                            <li><NavLink to="/completed-todos" className="rounded-lg">Completed Todos</NavLink></li>
+                        </>
+                    }
+                    {user ?
+                        <li><button onClick={handleSignout} className="btn btn-primary btn-outline rounded-lg">Sign Out</button></li>
+                        :
+                        <li><Link to="/signin" className="btn btn-primary btn-outline rounded-lg">Sign In</Link></li>
+                    }
 
                 </ul>
 
