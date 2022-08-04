@@ -1,7 +1,7 @@
 import './App.css';
 import Navbar from './Components/Navbar';
 import { Routes, Route } from "react-router-dom";
-import Signin from './Authentication/Signin';
+import SignIn from './Authentication/SignIn';
 import SignUp from './Authentication/SignUp';
 import Footer from './Components/Footer';
 import Home from './Pages/Home/Home';
@@ -20,7 +20,7 @@ function App() {
           <Route path="/your-todos" element={<YourTodos />} />
           <Route path="/completed-todos" element={<CompletedTodos />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="/signin" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer/>

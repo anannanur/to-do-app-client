@@ -1,5 +1,4 @@
 import React from 'react';
-import "./Home.css";
 import {Link} from 'react-router-dom';
 
 const Home = () => {
@@ -10,9 +9,9 @@ const Home = () => {
           }}>
             <div className="hero-overlay bg-opacity-10"></div>
             <div className="hero-content text-center text-neutral-content">
-                <div className="max-w-md bg-opacity-50 p-12 rounded-lg bg-base-100 text-white">
-                    <h1 className="mb-5 text-5xl font-bold">Hello There..</h1>
-                    <p className="mb-5">Welcome Ananna. Complete your task with this todo app. Have a great day!!</p>
+                <div className="max-w-md bg-opacity-50 p-12 rounded-lg bg-base-100">
+                    <h1 className="mb-5 text-4xl font-medium text-primary">Welcome Ananna</h1>
+                    <p className="mb-5 text-white">List your day to day tasks and complete those tasks with this todo app. Have a great day!!</p>
                     <Link to="/signup" className="btn btn-primary">Get Started</Link>
                 </div>
             </div>
