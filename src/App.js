@@ -10,11 +10,14 @@ import YourTodos from './Pages/YourTodos';
 import CompletedTodos from './Pages/CompletedTodos';
 import NotFound from './Components/NotFound';
 import PrivateRoute from './Authentication/PrivateRoute';
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <div className="App">
       <Navbar>
+        <ToastContainer/>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/add-todos" element={<PrivateRoute>
