@@ -1,21 +1,59 @@
 import { format } from 'date-fns';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from "react-router-dom";
 import { DayPicker } from 'react-day-picker';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../firebase/firebase.init';
 
 const EditTodos = () => {
 
     const [date, setDate] = useState(new Date());
-    const [task, setTask] = useState({})
+    const { id } = useParams();
+    const [task, setTask] = useState({});
+    const [user] = useAuthState(auth);
+
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/edit-task/${id}`)
+            .then(res => res.json())
+            .then(data => setTask(data))
+    }, [id])
 
     const nameRef = useRef('');
     const desRef = useRef('');
     const dateRef = useRef('');
     const timeRef = useRef('');
 
-    // const handleEditTask = event =>{
-    //     event.preventDefault();
+    const handleEditTask = event => {
+        event.preventDefault();
+        const name = nameRef.current.value;
+        const des = desRef.current.value;
+        const date = dateRef.current.value;
+        const time = timeRef.current.value;
+        const email = user?.email;
+        const allData = {
+            name, des, date, time, email
+        };
+        if (name && des && date && time && email) {
 
-    // }
+            fetch(`http://localhost:5000/edit-task/${email}`, {
+                method: "PUT",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(allData),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data)
+                    alert("Data updated successfully")
+                });
+        }
+        else {
+            alert("You must fill out the input fields");
+        }
+
+    }
 
     return (
         <div className="hero py-10 bg-slate-400">
@@ -31,18 +69,18 @@ const EditTodos = () => {
                 <div className="card flex-shrink-0 w-full lg:mr-8 max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">
                         <h1 className='text-primary text-3xl text-center'>Edit Your Todo</h1>
-                        <form >
+                        <form onSubmit={handleEditTask}>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Task</span>
                                 </label>
-                                <input ref={nameRef} type="text"  className="input input-bordered" />
+                                <input ref={nameRef} placeholder={task.name} type="text" className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Description</span>
                                 </label>
-                                <input ref={desRef} type="text" placeholder="Task Description" className="input input-bordered" />
+                                <input ref={desRef} type="text" placeholder={task.des} className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
