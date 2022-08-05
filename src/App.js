@@ -12,6 +12,7 @@ import NotFound from './Components/NotFound';
 import PrivateRoute from './Authentication/PrivateRoute';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import EditTodos from './Pages/EditTodos';
 
 function App() {
   return (
@@ -29,6 +30,13 @@ function App() {
           <Route path="/completed-todos" element={<PrivateRoute>
             <CompletedTodos />
           </PrivateRoute>} />
+          <Route
+          path="/:id"
+          element={
+            <PrivateRoute>
+              <EditTodos></EditTodos>
+            </PrivateRoute>
+          }/>       
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />
