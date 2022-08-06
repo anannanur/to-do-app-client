@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
-import { Link, useNavigate } from "react-router-dom";
-// import auth from "../firebase.init";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, } from 'react-firebase-hooks/auth';
 import auth from '../firebase/firebase.init';
+import Loader from './Loader';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
 
@@ -10,13 +11,17 @@ const SignUp = () => {
     const nameRef = useRef('');
     const emailRef = useRef('');
     const passwordRef = useRef('');
+    const location = useLocation();
+    let from = location.state?.from?.pathname || "/";
 
     const [
         createUserWithEmailAndPassword,
         user,
-        // loading,
-        // error,
+        loading,
+        error,
     ] = useCreateUserWithEmailAndPassword(auth);
+
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
 
     // navigate to signin
     const navigateToSignin = () => {
@@ -29,16 +34,37 @@ const SignUp = () => {
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         createUserWithEmailAndPassword(email, password);
+        toast.success("Signed up successfully",{
+            position: "top-center",
+            theme: "dark"
+        });
     }
 
-    if(user){
-        navigate('/');
+    if (user || gUser) {
+        navigate(from, { replace: true });
+    }
+    if (loading || gLoading) {
+        return <Loader />;
+    }
+    // error handling 
+    let errorMessage;
+    if (error) {
+        errorMessage = 
+        <div>
+            <small className='text-red-500 font-medium'>{error.message}</small>
+        </div>
+        
+    }
+    if (gError) {
+        errorMessage = 
+        <div>
+            <small className='text-red-500 font-medium'>{gError.message}</small>
+        </div>
     }
 
     return (
-        <div className="hero min-h-screen">
-            <div className="hero-overlay bg-opacity-20"></div>
-            <div className="card  w-full max-w-sm shadow-2xl bg-base-100 bg-opacity-60">
+        <div className="hero bg-accent min-h-fit">
+            <div className="card w-full my-10 max-w-sm shadow-2xl bg-base-100 bg-opacity-60">
                 <form onSubmit={handleSignup}>
                     <div className="card-body">
                         <h1 className='text-3xl text-primary text-center font-medium'>Sign Up here</h1>
@@ -70,8 +96,9 @@ const SignUp = () => {
                             <div className="divider">OR</div>
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn btn-outline btn-primary">Continue with Google</button>
+                            <button onClick={() => signInWithGoogle()} className="btn btn-outline btn-primary">Continue with Google</button>
                         </div>
+                        {errorMessage}
                     </div>
                 </form>
             </div>

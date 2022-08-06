@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { DayPicker } from 'react-day-picker';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../firebase/firebase.init';
+import { toast } from 'react-toastify';
 
 const EditTodos = () => {
 
@@ -46,17 +47,23 @@ const EditTodos = () => {
                 .then((res) => res.json())
                 .then((data) => {
                     console.log(data)
-                    alert("Data updated successfully")
+                    toast.success("Task updated successfully",{
+                        position: "top-center",
+                        theme: "colored"
+                    });
                 });
         }
         else {
-            alert("You must fill out the input fields");
+            toast.error("Don't leave an input field empty",{
+                position: "top-center",
+                theme: "colored"
+            });
         }
 
     }
 
     return (
-        <div className="hero py-10 bg-slate-400">
+        <div className="hero py-10 min-h-fit bg-slate-400">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left text-base-100 font-semibold">
                     <h1 className='font-semibold text-center text-base-100 text-3xl mb-5'>Pick a date</h1>

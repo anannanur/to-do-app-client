@@ -2,6 +2,7 @@ import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import auth from '../firebase/firebase.init';
 
 const Navbar = ({ children }) => {
@@ -12,6 +13,10 @@ const Navbar = ({ children }) => {
     const handleSignout = () => {
         signOut(auth);
         navigate('/');
+        toast.success("Signed out successfully",{
+            position: "top-center",
+            theme: "dark"
+        });
     }
 
     return (

@@ -25,21 +25,32 @@ const YourTodos = () => {
             .then((data) => {
                 const remainedTasks = tasks.filter(task => task._id !== id);
                 setTasks(remainedTasks);
-                toast('deleted');
+                toast.success("Task deleted successfully", {
+                    position: "top-center",
+                    theme: "dark"
+                });
             });
     };
 
     return (
-        <div className='pb-24 px-16 bg-accent' style={{ height: '100vh' }}>
+        <div className='pt-20 pb-48 px-16 sm:min-h-fit md:h-screen lg:h-screen bg-accent'>
             {tasks.length === 0 ?
-                <h1 className="text-3xl my-7 font-semibold text-primary text-center">
-                    No task is available for you right now!!
-                </h1>
+                <div className='flex justify-center items-center h-full'>
+                    <h1 className="text-3xl font-semibold text-primary text-center">
+                        No task is available for you right now!!
+                    </h1>
+                </div>
                 :
                 <>
-                    <h1 className="text-3xl my-7 font-semibold text-primary text-center">
-                        These tasks are waiting for you!
-                    </h1>
+                    {tasks.length > 1 ?
+                        <h1 className="text-3xl mt-5 mb-10 font-semibold text-primary text-center">
+                            These tasks are waiting for you!
+                        </h1>
+                        :
+                        <h1 className="text-3xl mt-5 mb-10 font-semibold text-primary text-center">
+                            One task is waiting for you!
+                        </h1>
+                    }
                     <div class="overflow-x-auto">
                         <table class="table w-full">
                             {/* <!-- head --> */}
