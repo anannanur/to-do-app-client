@@ -13,7 +13,7 @@ const YourTodos = () => {
 
     // fetching all added todos 
     useEffect(() => {
-        fetch(`http://localhost:5000/your-tasks?email=${email}`)
+        fetch(`https://salty-tor-62758.herokuapp.com/your-tasks?email=${email}`)
             .then((response) => response.json())
             .then((data) => setTasks(data));
     }, [email, tasks])
@@ -21,7 +21,7 @@ const YourTodos = () => {
     // handling remove button 
     const handleRemoving = (id) => {
         // deleting single data using delete method 
-        fetch(`http://localhost:5000/task/${id}`, {
+        fetch(`https://salty-tor-62758.herokuapp.com/task/${id}`, {
             method: "DELETE",
         })
             .then((res) => res.json())

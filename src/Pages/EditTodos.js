@@ -15,7 +15,7 @@ const EditTodos = () => {
 
     // fetching a single tasks' data 
     useEffect(() => {
-        fetch(`http://localhost:5000/edit-task/${id}`)
+        fetch(`https://salty-tor-62758.herokuapp.com/edit-task/${id}`)
             .then(res => res.json())
             .then(data => setTask(data))
     }, [id])
@@ -40,7 +40,7 @@ const EditTodos = () => {
         // editing task with put method 
         if (name && des && date && time && email) {
 
-            fetch(`http://localhost:5000/edit-task/${id}`, {
+            fetch(`https://salty-tor-62758.herokuapp.com/edit-task/${id}`, {
                 method: "PUT",
                 headers: {
                     "content-type": "application/json",

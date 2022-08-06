@@ -34,7 +34,7 @@ const AddTodos = () => {
 
         // adding data to database with post method 
         if (email && name && des && date && time) {
-            fetch(`http://localhost:5000/tasks`, {
+            fetch(`https://salty-tor-62758.herokuapp.com/tasks`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
