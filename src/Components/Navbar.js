@@ -19,8 +19,8 @@ const Navbar = ({ children }) => {
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
                 {/* <!-- Navbar --> */}
-                <div className='py-2 sticky top-0 mt-0 bg-base-100 z-10'>
-                    <div className="w-full navbar  px-5 ">
+                <div className='py-2 mt-0 bg-base-100 z-10'>
+                    <div className="w-full navbar  lg:px-5 ">
                         <Link to="/" className="flex-1 px-2 mx-2 text-primary font-medium text-3xl">To-Do App</Link>
                         <div className="flex-none lg:hidden">
                             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
@@ -34,7 +34,6 @@ const Navbar = ({ children }) => {
                                 {user && <>
                                     <li><NavLink to="/add-todos" className="rounded-lg mr-3">Add Todos</NavLink></li>
                                     <li><NavLink to="/your-todos" className="rounded-lg mr-3">Your Todos</NavLink></li>
-                                    <li><NavLink to="/completed-todos" className="rounded-lg mr-3">Completed Todos</NavLink></li>
                                 </>}
                                 {user ?
                                     <li><button onClick={handleSignout} className="btn btn-primary btn-outline rounded-lg">Sign Out</button></li>

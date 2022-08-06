@@ -7,7 +7,6 @@ import Footer from './Components/Footer';
 import Home from './Pages/Home/Home';
 import AddTodos from './Pages/AddTodos';
 import YourTodos from './Pages/YourTodos';
-import CompletedTodos from './Pages/CompletedTodos';
 import NotFound from './Components/NotFound';
 import PrivateRoute from './Authentication/PrivateRoute';
 import { ToastContainer} from 'react-toastify';
@@ -27,9 +26,6 @@ function App() {
           <Route path="/your-todos" element={<PrivateRoute>
             <YourTodos />
           </PrivateRoute>} />
-          <Route path="/completed-todos" element={<PrivateRoute>
-            <CompletedTodos />
-          </PrivateRoute>} />
           <Route
           path="/:id"
           element={
@@ -41,8 +37,10 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <Footer/>
+        
       </Navbar>
+      <Footer/>
+      
     </div>
   );
 }
