@@ -12,6 +12,7 @@ const SignUp = () => {
     const emailRef = useRef('');
     const passwordRef = useRef('');
     const location = useLocation();
+
     let from = location.state?.from?.pathname || "/";
 
     const [
@@ -28,13 +29,14 @@ const SignUp = () => {
         navigate('/signin');
     }
 
+    //handling sign up button
     const handleSignup = event => {
         event.preventDefault();
         // const name = nameRef.current.value;
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         createUserWithEmailAndPassword(email, password);
-        toast.success("Signed up successfully",{
+        toast.success("Signed up successfully", {
             position: "top-center",
             theme: "dark"
         });
@@ -49,22 +51,23 @@ const SignUp = () => {
     // error handling 
     let errorMessage;
     if (error) {
-        errorMessage = 
-        <div>
-            <small className='text-red-500 font-medium'>{error.message}</small>
-        </div>
-        
+        errorMessage =
+            <div>
+                <small className='text-red-500 font-medium'>{error.message}</small>
+            </div>
     }
     if (gError) {
-        errorMessage = 
-        <div>
-            <small className='text-red-500 font-medium'>{gError.message}</small>
-        </div>
+        errorMessage =
+            <div>
+                <small className='text-red-500 font-medium'>{gError.message}</small>
+            </div>
     }
 
     return (
         <div className="hero bg-accent min-h-fit">
-            <div className="card w-full my-10 max-w-sm shadow-2xl bg-base-100 bg-opacity-60">
+            <div data-aos="fade-down"
+                data-aos-easing="linear"
+                data-aos-duration="1500" className="card w-full my-10 max-w-sm shadow-2xl bg-base-100 bg-opacity-60">
                 <form onSubmit={handleSignup}>
                     <div className="card-body">
                         <h1 className='text-3xl text-primary text-center font-medium'>Sign Up here</h1>

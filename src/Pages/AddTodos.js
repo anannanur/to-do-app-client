@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 const AddTodos = () => {
 
     const [date, setDate] = useState(new Date());
-    const [val,setVal] = useState();
+    const [val, setVal] = useState();
     const [user] = useAuthState(auth);
 
     const email = user?.email;
@@ -19,6 +19,8 @@ const AddTodos = () => {
     const dateRef = useRef('');
     const timeRef = useRef('');
 
+
+    // handling add task button 
     const handleAddTask = event => {
         event.preventDefault();
         const name = nameRef.current.value;
@@ -29,6 +31,8 @@ const AddTodos = () => {
         const allData = {
             name, des, date, time, email
         };
+
+        // adding data to database with post method 
         if (email && name && des && date && time) {
             fetch(`http://localhost:5000/tasks`, {
                 method: 'POST',
@@ -36,11 +40,11 @@ const AddTodos = () => {
                     'Content-type': 'application/json',
                 },
                 body: JSON.stringify(allData),
-                
+
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    toast.success("New Task added successfully",{
+                    toast.success("New Task added successfully", {
                         position: "top-center",
                         theme: "colored"
                     });
@@ -48,7 +52,7 @@ const AddTodos = () => {
                 });
         }
         else {
-            toast.error("Don't leave an input field empty",{
+            toast.error("Don't leave an input field empty", {
                 position: "top-center",
                 theme: "colored"
             });
@@ -60,7 +64,8 @@ const AddTodos = () => {
     return (
         <div className="hero py-10 min-h-fit bg-slate-400">
             <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="text-center lg:text-left text-base-100 font-semibold">
+                <div
+                    className="text-center lg:text-left text-base-100 font-semibold">
                     <h1 className='font-semibold text-center text-base-100 text-3xl mb-5'>Pick a date</h1>
                     <DayPicker className=''
                         mode="single"
@@ -68,7 +73,8 @@ const AddTodos = () => {
                         onSelect={setDate}
                     />
                 </div>
-                <div className="card flex-shrink-0 w-full lg:mr-8 max-w-sm shadow-2xl bg-base-100">
+                <div
+                    className="card flex-shrink-0 w-full lg:mr-8 max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">
                         <h1 className='text-primary text-3xl text-center'>Add New Todo</h1>
                         <form onSubmit={handleAddTask}>

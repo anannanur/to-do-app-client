@@ -5,7 +5,7 @@ import auth from '../firebase/firebase.init';
 
 const PrivateRoute = ({children}) => {
 
-    const [user, loading, error] = useAuthState(auth);
+    const [user] = useAuthState(auth);
     const location = useLocation()
 
     if(!user){

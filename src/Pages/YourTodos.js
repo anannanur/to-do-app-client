@@ -11,13 +11,16 @@ const YourTodos = () => {
     const [tasks, setTasks] = useState([]);
     const navigate = useNavigate();
 
+    // fetching all added todos 
     useEffect(() => {
         fetch(`http://localhost:5000/your-tasks?email=${email}`)
             .then((response) => response.json())
             .then((data) => setTasks(data));
     }, [email, tasks])
 
+    // handling remove button 
     const handleRemoving = (id) => {
+        // deleting single data using delete method 
         fetch(`http://localhost:5000/task/${id}`, {
             method: "DELETE",
         })
@@ -33,17 +36,11 @@ const YourTodos = () => {
     };
 
     return (
-        <div className='pt-20 pb-48 px-16 sm:min-h-fit md:h-screen lg:h-screen bg-accent'>
-            {tasks.length === 0 ?
-                <div className='flex justify-center items-center h-full'>
-                    <h1 className="text-3xl font-semibold text-primary text-center">
-                        No task is available for you right now!!
-                    </h1>
-                </div>
-                :
+        <div className='pt-20 pb-48 px-16 min-h-fit bg-accent'>
+            {tasks?.length !== 0 ?
                 <>
-                    {tasks.length > 1 ?
-                        <h1 className="text-3xl mt-5 mb-10 font-semibold text-primary text-center">
+                    {tasks?.length > 1 ?
+                        <h1  className="text-3xl mt-5 mb-10 font-semibold text-primary text-center">
                             These tasks are waiting for you!
                         </h1>
                         :
@@ -51,8 +48,8 @@ const YourTodos = () => {
                             One task is waiting for you!
                         </h1>
                     }
-                    <div class="overflow-x-auto">
-                        <table class="table w-full">
+                    <div className="overflow-x-auto">
+                        <table className="table w-full">
                             {/* <!-- head --> */}
                             <thead>
                                 <tr>
@@ -77,7 +74,7 @@ const YourTodos = () => {
                                         </label>
                                     </td>
                                     <td>
-                                        <button onClick={() => navigate(`/${task._id}`)}>
+                                        <button onClick={() => navigate(`/edit/${task._id}`)}>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 className="h-6 w-6"
@@ -99,6 +96,12 @@ const YourTodos = () => {
                         </table>
                     </div>
                 </>
+                :
+                <div className='flex justify-center items-center h-full'>
+                    <h1 className="text-3xl font-semibold text-primary text-center">
+                        No task is available for you right now!!
+                    </h1>
+                </div>
             }
         </div>
     );

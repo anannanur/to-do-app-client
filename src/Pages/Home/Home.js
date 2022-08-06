@@ -14,7 +14,10 @@ const Home = () => {
             }}>
             <div className="hero-overlay bg-base-100 bg-opacity-30"></div>
             <div className="hero-content text-center text-neutral-content">
-                <div className="my-32 lg:my-0 max-w-md bg-opacity-50 p-12 rounded-lg bg-base-100">
+                <div data-aos="fade-down"
+                    data-aos-easing="linear"
+                    data-aos-duration="1500" 
+                    className="my-32 lg:my-0 max-w-md bg-opacity-50 p-12 rounded-lg bg-base-100">
                     <h1 className="mb-5 text-3xl font-medium text-primary">Welcome to my Todo!</h1>
                     <p className="mb-5 text-white">List your day to day tasks and complete those tasks with this todo app. Have a great day!!</p>
                     {user ? <Link to="/add-todos" className="btn btn-primary">Get Started</Link>
