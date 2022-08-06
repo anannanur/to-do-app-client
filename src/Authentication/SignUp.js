@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, } from 'react-firebase-hooks/auth';
 import auth from '../firebase/firebase.init';
 import Loader from './Loader';
-import { toast } from 'react-toastify';
 
 const SignUp = () => {
 
@@ -36,10 +35,6 @@ const SignUp = () => {
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         createUserWithEmailAndPassword(email, password);
-        toast.success("Signed up successfully", {
-            position: "top-center",
-            theme: "dark"
-        });
     }
 
     if (user || gUser) {

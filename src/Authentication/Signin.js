@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle, } from 'react-firebase-hooks/auth';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import auth from '../firebase/firebase.init';
 import Loader from './Loader';
 
@@ -48,10 +47,6 @@ const SignIn = () => {
     }
     if (user || gUser) {
         navigate(from, { replace: true });
-        toast.success("Signed in successfully",{
-            position: "top-center",
-            theme: "dark"
-        });
     }
 
     // error handling 
