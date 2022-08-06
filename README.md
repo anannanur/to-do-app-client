@@ -1,4 +1,4 @@
-# [To Do App](https://to-do-app-f21be.web.app/).
+# [To Do App](https://to-do-app-f21be.web.app/)
 
 ## Features & Functionality :
 * 404 page has been added.
